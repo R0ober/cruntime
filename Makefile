@@ -1,8 +1,8 @@
 slab: slab.c
 	gcc -Wall -Wextra -g -o build/slab slab.c
 
-unit: tests/unit_tests.c allocator.c
-	gcc -Wall -Wextra -g -o build/unit_tests slab.c tests/unit_tests.c
+unit: tests/unit_tests.c slab.c common/bump.c
+	gcc -Wall -Wextra -g -DTESTING -o build/unit_tests slab.c common/bump.c tests/unit_tests.c
 
 
 # ===============================================================

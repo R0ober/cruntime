@@ -17,3 +17,9 @@ typedef struct slab_node {
 
 int slab_free(void* ptr, size_t size);
 void* slab_alloc(size_t size);
+
+#ifdef TESTING
+void slab_init();
+void slab_reset();
+extern slab_t slabs[SLAB_NUMBER_OF_SLAB_CLASSES];
+#endif 

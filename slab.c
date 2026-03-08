@@ -31,12 +31,21 @@ void* slab_alloc(size_t size){
     if (slabs[selected_slab_size_index].free_list == NULL) {
         return bump_allocator(slabs[selected_slab_size_index].size);
     }
-    // there are actually blocks on the slab
+    // there are actually nodes on the slab
     void* allocated = (void*)(slabs[selected_slab_size_index].free_list); // first avaliable block
     slab_node_t* new_head_node = slabs[selected_slab_size_index].free_list->next;
     slabs[selected_slab_size_index].free_list = new_head_node;
     return allocated;
 }
+
+#ifdef TESTING
+void slab_reset() {
+    for (int i = 0; i < SLAB_NUMBER_OF_SLAB_CLASSES; i++) {
+        slabs[i].size = 0;
+        slabs[i].free_list = NULL;
+    }
+}
+#endif
 
 int slab_free(void* ptr, size_t size) {
     // checks
@@ -54,9 +63,4 @@ int slab_free(void* ptr, size_t size) {
         }
     }
     return -1;
-}
-
-int main(void) {
-    
-    return 1;
 }
