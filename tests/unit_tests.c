@@ -92,6 +92,41 @@ void test_slab_alloc_nodes_exist_on_slab() {
 }
 
 
+void test_slab_stress() {
+    slab_reset();
+    slab_init();
+
+    #define ALLOCS_PER_CLASS 50
+    void* ptrs[SLAB_NUMBER_OF_SLAB_CLASSES][ALLOCS_PER_CLASS];
+
+    // allocate a bunch per size class
+    for (int i = 0; i < SLAB_NUMBER_OF_SLAB_CLASSES; i++) {
+        for (int j = 0; j < ALLOCS_PER_CLASS; j++) {
+            ptrs[i][j] = slab_alloc(slab_sizes[i]);
+            ASSERT_PTR_NOT_NULL(ptrs[i][j]);
+        }
+    }
+
+    // free them all back
+    for (int i = 0; i < SLAB_NUMBER_OF_SLAB_CLASSES; i++) {
+        for (int j = 0; j < ALLOCS_PER_CLASS; j++) {
+            int err = slab_free(ptrs[i][j], slab_sizes[i]);
+            ASSERT_EQ(err, 0);
+        }
+    }
+
+    // verify free list lengths
+    for (int i = 0; i < SLAB_NUMBER_OF_SLAB_CLASSES; i++) {
+        int count = 0;
+        slab_node_t *node = slabs[i].free_list;
+        while (node) { count++; node = node->next; }
+        ASSERT_EQ(count, ALLOCS_PER_CLASS);
+    }
+
+    slab_stats();
+}
+
+
 int main(void) {
     
     RUN_TEST(test_slab_init);
@@ -101,6 +136,8 @@ int main(void) {
     RUN_TEST(test_slab_free_no_existing_free_list);
     RUN_TEST(test_slab_free_existing_free_list);
     RUN_TEST(test_slab_alloc_nodes_exist_on_slab);
+    RUN_TEST(test_slab_stress);
+    //slab_stats();
     return SU_report_and_return();
     
     

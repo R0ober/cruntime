@@ -17,6 +17,7 @@ typedef struct slab_node {
 
 int slab_free(void* ptr, size_t size);
 void* slab_alloc(size_t size);
+void slab_stats();
 
 #ifdef TESTING
 void slab_init();
