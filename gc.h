@@ -16,3 +16,4 @@ typedef struct allocation{
 int gc_register_root(void* ptr );
 void* gc_alloc(size_t size);
 int gc_collect(void); 
+void gc_stats(void);
