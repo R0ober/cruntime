@@ -13,7 +13,7 @@ void* bump_allocator(intptr_t size) {
 
 #endif
 
-#ifdef BUMP_USE_EMBEDDED
+#if defined(USE_EMBEDDED) || defined(BUMP_USE_EMBEDDED)
 
 static uint8_t heap[ALLOCATOR_HEAP_SIZE];
 static size_t offset = 0;
