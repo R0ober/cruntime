@@ -67,6 +67,7 @@ int slab_free(void* ptr, size_t size) {
     return -1;
 }
 
+#ifndef USE_EMBEDDED
 void slab_stats() {
     const char *title = " SLABS ";
     int title_len = 7;
@@ -148,3 +149,4 @@ void slab_stats() {
     for (int i = 0; i < frame_width; i++) printf(COLOR_BORDER BOX_H RESET);
     printf(COLOR_BORDER BOX_BR RESET "\n");
 }
+#endif
