@@ -13,3 +13,6 @@ typedef struct allocation{
     struct allocation* next;
 }allocation_t;
 
+int gc_register_root(void* ptr );
+void* gc_alloc(size_t size);
+int gc_collect(void); 
