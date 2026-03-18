@@ -94,7 +94,7 @@ int gc_collect() {
 
 
 }
-#if defined(USE_EMBEDDED)
+#ifndef USE_EMBEDDED
 void gc_stats(void) {
     const int frame_width = 78;
     const int inset = 2;
@@ -159,5 +159,9 @@ void gc_stats(void) {
     }
     visual_draw_subbox_bottom(frame_width, inset);
     visual_draw_horizontal(BOX_BL, BOX_BR, frame_width);
+}
+#else
+void gc_stats(void) {
+    // No-op on embedded builds.
 }
 #endif

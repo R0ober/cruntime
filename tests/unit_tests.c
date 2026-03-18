@@ -253,6 +253,7 @@ int main(void) {
     RUN_TEST(test_gc_collect_collect);
     RUN_TEST(test_gc_collect_verify_blocks_reused);
     //slab_stats();
+    //gc_stats();
     return SU_report_and_return();
     
     
