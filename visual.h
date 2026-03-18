@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stddef.h>
+
 // terminal visuals
 #define RESET     "\033[0m"
 #define BOLD      "\033[1m"
@@ -32,3 +34,52 @@
 #define BOX_V  "│"
 #define BOX_LT "├"
 #define BOX_RT "┤"
+
+void visual_draw_horizontal(const char* left, const char* right, int width);
+void visual_draw_title(const char* title, int width);
+void visual_draw_section_header(const char* title, int width);
+void visual_draw_kv_row(const char* key, size_t value, int width);
+void visual_draw_text_row(const char* text, int width, const char* color);
+void visual_draw_table_header4(const char* c1,
+							   const char* c2,
+							   const char* c3,
+							   const char* c4,
+							   int width);
+void visual_draw_slab_row(size_t slab_size,
+						  int free_count,
+						  const void* head,
+						  int max_bar,
+						  int width);
+void visual_draw_summary_bytes(const char* label, size_t bytes, int width);
+void visual_draw_node_block_bar(int count, int max_bar);
+void visual_draw_usage_block_bar(size_t used, size_t capacity, int max_bar);
+void visual_draw_usage_row(const char* label,
+						   size_t used,
+						   size_t capacity,
+						   int max_bar,
+						   int width);
+
+void visual_draw_subbox_top(const char* title, int outer_width, int inset);
+void visual_draw_subbox_kv_row(const char* key, size_t value, int outer_width, int inset);
+void visual_draw_subbox_divider(int outer_width, int inset);
+void visual_draw_subbox_columns_header4(const char* c1,
+										const char* c2,
+										const char* c3,
+										const char* c4,
+										int w1,
+										int w2,
+										int w3,
+										int w4,
+										int outer_width,
+										int inset);
+void visual_draw_subbox_columns_row4(const char* v1,
+									 const char* v2,
+									 const char* v3,
+									 const char* v4,
+									 int w1,
+									 int w2,
+									 int w3,
+									 int w4,
+									 int outer_width,
+									 int inset);
+void visual_draw_subbox_bottom(int outer_width, int inset);
